@@ -1,0 +1,11 @@
+<section class="signup-page">
+  <form class="main-form" #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <mat-form-field>
+      <input type="text" name="name" placeholder="Name" matInput autocomplete="off" ngModel>
+    </mat-form-field>
+    <mat-form-field>
+        <input type="text" name="password" placeholder="Password" matInput ngModel>
+      </mat-form-field>
+      <button type="submit" class="submit" mat-raised-button color="primary">Submit</button>
+  </form>
+</section>

@@ -1,0 +1,18 @@
+.signup-page {
+    display: flex;
+    justify-content: center;
+    .main-form { 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 320px;
+        border: 1px solid rgb(124, 12, 175);
+        border-radius: 10px;
+        padding: 15px;
+        box-shadow: -1px 3px 19px -3px #7c0caf;
+        .submit {
+            margin-top: 20px;
+            width: 40%;
+        }
+    }
+}
