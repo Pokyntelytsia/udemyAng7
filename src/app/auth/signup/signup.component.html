@@ -1,11 +1,32 @@
 <section class="signup-page">
   <form class="main-form" #f="ngForm" (ngSubmit)="onSubmit(f)">
     <mat-form-field>
-      <input type="text" name="name" placeholder="Name" matInput autocomplete="off" ngModel>
+      <input type="text" 
+      name="email" 
+      placeholder="Email" 
+      matInput 
+      autocomplete="off" 
+      ngModel
+      #emailInput="ngModel"
+      required
+      email
+      >
+      <mat-error *ngIf="!emailInput.hasError('required')">E-mail is not valid</mat-error>
+      <mat-error *ngIf="emailInput.hasError('required')">Has not to be empty</mat-error>
     </mat-form-field>
-    <mat-form-field>
-        <input type="text" name="password" placeholder="Password" matInput ngModel>
-      </mat-form-field>
+    <mat-form-field hintLabel="Should be at least 6 characters long.">
+        <input type="text" 
+        name="password" 
+        placeholder="Password" 
+        matInput 
+        ngModel
+        #pwInput="ngModel"
+        autocomplete="off" 
+        required
+        minlength="6">
+        <mat-hint align="end"> {{ pwInput.value?.length }}/6 </mat-hint>
+        <mat-error>Has to be at least 6 characters long</mat-error>
+    </mat-form-field>
       <button type="submit" class="submit" mat-raised-button color="primary">Submit</button>
   </form>
 </section>
