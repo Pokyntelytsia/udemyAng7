@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { 
   MatButtonModule, 
   MatIconModule, 
   MatFormFieldModule, 
-  MatInputModule
+  MatInputModule,
+  MatDatepickerModule
  } from '@angular/material';
 
 @NgModule({
@@ -13,13 +15,17 @@ import {
     MatButtonModule,
     MatIconModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatDatepickerModule,
+    MatMomentDateModule
   ],
   exports: [
     MatButtonModule,
     MatIconModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatDatepickerModule,
+    MatMomentDateModule
   ]
 })
 
