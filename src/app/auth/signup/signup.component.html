@@ -14,7 +14,7 @@
       <mat-error *ngIf="!emailInput.hasError('required')">E-mail is not valid</mat-error>
       <mat-error *ngIf="emailInput.hasError('required')">Has not to be empty</mat-error>
     </mat-form-field>
-    <mat-form-field hintLabel="Should be at least 6 characters long.">
+    <mat-form-field >
         <input type="text" 
         name="password" 
         placeholder="Password" 
@@ -28,10 +28,18 @@
         <mat-error>Has to be at least 6 characters long</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input type="text" matInput placeholder="Enter your birthdate" [matDatepicker]="bdPicker">
+      <input type="text" 
+      matInput 
+      placeholder="Enter your birthdate" 
+      [matDatepicker]="bdPicker"
+      [max]="maxBirthdate"
+      ngModel
+      name="birthdate"
+      required>
       <mat-datepicker-toggle [for]="bdPicker" matSuffix></mat-datepicker-toggle>
       <mat-datepicker #bdPicker></mat-datepicker>
     </mat-form-field>
-      <button type="submit" class="submit" mat-raised-button color="primary">Submit</button>
+    <mat-checkbox ngModel required name="agreement">Agree to Terms and Conditions</mat-checkbox>
+    <button type="submit" class="submit" mat-raised-button color="primary">Submit</button>
   </form>
 </section>

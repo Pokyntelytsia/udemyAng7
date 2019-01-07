@@ -10,7 +10,11 @@ export class SignupComponent implements OnInit {
 
   constructor() { }
 
+  maxBirthdate: Date;
+
   ngOnInit() {
+    this.maxBirthdate = new Date();
+    this.maxBirthdate.setFullYear(this.maxBirthdate.getFullYear() - 18);
   }
 
   onSubmit(form: NgForm):void {

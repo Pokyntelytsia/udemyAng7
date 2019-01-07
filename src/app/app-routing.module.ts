@@ -9,7 +9,9 @@ import { TrainingComponent } from "./training/training/training.component";
 const routes: Route[] = [
     {
         path: '',
-        component: WelcomeComponent
+        redirectTo: '/signup',
+        pathMatch: 'full'
+        //component: WelcomeComponent
     }, {
         path: 'signup',
         component: SignupComponent
