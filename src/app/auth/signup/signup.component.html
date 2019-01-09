@@ -1,4 +1,4 @@
-<section class="signup-page">
+<section class="signup-page auth-form-page">
   <form class="main-form" #f="ngForm" (ngSubmit)="onSubmit(f)">
     <mat-form-field>
       <input type="text" 
@@ -41,5 +41,6 @@
     </mat-form-field>
     <mat-checkbox ngModel required name="agreement">Agree to Terms and Conditions</mat-checkbox>
     <button type="submit" class="submit" mat-raised-button color="primary">Submit</button>
+    <a routerLink="/login">Or signin</a>
   </form>
 </section>

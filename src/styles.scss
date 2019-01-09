@@ -1,2 +1,48 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "./variables";
+@import "./mixins";
+html {
+    height: 100vh;
+    body {
+        margin: 0;
+        padding: 0;
+        &.auth-page-gradient {
+            @include gradient-violet;
+        }
+    }
+    
+}
+.auth-form-page {
+    display: flex;
+    justify-content: center;
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', endColorstr='#aa75af',GradientType=0 );
+    .main-form { 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 320px;
+        border: 1px solid $violet;
+        border-radius: 10px;
+        padding: 15px;
+        box-shadow: -1px 3px 19px -3px $violet;
+        mat-form-field {
+            width: 75%;
+        }
+        .submit {
+            margin-top: 20px;
+            width: 40%;
+        }
+        a {
+            font-family: Roboto,"Helvetica Neue",sans-serif;
+            color: #3f51b5;
+            margin-top: 10px;
+            text-decoration: none;
+            transition: color 1000ms;
+            &:hover {
+                color: $violet;
+                transition: color 1000ms;
+            }
+        }
+    }
+}

@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -30,7 +31,8 @@ import { MaterialModule } from './material.module';
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
