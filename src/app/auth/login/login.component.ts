@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { emailValidator } from '../../validators/email.validator';
 
 @Component({
   selector: 'app-login',
@@ -7,12 +8,21 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  loginForm: FormGroup = new FormGroup({
-    formEmailControl:  new FormControl(''),
-    formPasswordControl:  new FormControl('123asd')
+
+  loginForm: FormGroup = this.fb.group({
+    formEmailControl: ['', emailValidator()],
+    formPasswordControl: ['123', Validators.required]
   })
+
+  get emailForm() {
+    return this.loginForm.get('formEmailControl');
+  }
+
+  get passwordForm() {
+    return this.loginForm.get('formPasswordControl');
+  }
   
-  constructor() { }
+  constructor( private fb: FormBuilder) { }
 
   private addGradientClass(): void {
     document.body.classList.add('auth-page-gradient');
@@ -23,7 +33,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    console.log(this.loginForm.value);
+    console.log(this.loginForm);
   }
 
   ngOnInit() {

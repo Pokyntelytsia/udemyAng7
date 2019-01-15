@@ -1,12 +1,23 @@
 <section class="login-form auth-form-page">
   <form action="" class="main-form" (ngSubmit)="onSubmit()" [formGroup]="loginForm">
     <mat-form-field>
-      <input type="text" matInput formControlName="formEmailControl" placeholder="Enter your email">
+      <input type="email" 
+      matInput 
+      formControlName="formEmailControl"
+       placeholder="Enter your email"
+      required>
+    <mat-error *ngIf="emailForm.errors?.required">E-mail is required</mat-error>
+    <mat-error *ngIf="emailForm.errors?.invalidEmail">Enter the correct E-mail</mat-error>
     </mat-form-field>
     <mat-form-field>
-        <input type="password" matInput formControlName="formPasswordControl" placeholder="Enter your password">
+        <input type="password" 
+        matInput 
+        formControlName="formPasswordControl" 
+        placeholder="Enter your password"
+        required>
+        <mat-error *ngIf="passwordForm.errors?.required">Password is required</mat-error>
       </mat-form-field>
-      <button class="submit" class="submit" mat-raised-button color="primary">Login</button>
+      <button class="submit" class="submit" mat-raised-button color="primary" [disabled]="!loginForm.valid">Login</button>
     <a routerLink="/signup">Or signup</a>
   </form>
 </section>
