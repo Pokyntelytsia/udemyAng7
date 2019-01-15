@@ -1,10 +1,10 @@
 <section class="login-form auth-form-page">
-  <form action="" class="main-form" (ngSubmit)="onSubmit()">
+  <form action="" class="main-form" (ngSubmit)="onSubmit()" [formGroup]="loginForm">
     <mat-form-field>
-      <input type="text" matInput [formControl]="formEmailControl" placeholder="Enter your email">
+      <input type="text" matInput formControlName="formEmailControl" placeholder="Enter your email">
     </mat-form-field>
     <mat-form-field>
-        <input type="password" matInput [formControl]="formPasswordControl" placeholder="Enter your password">
+        <input type="password" matInput formControlName="formPasswordControl" placeholder="Enter your password">
       </mat-form-field>
       <button class="submit" class="submit" mat-raised-button color="primary">Login</button>
     <a routerLink="/signup">Or signup</a>

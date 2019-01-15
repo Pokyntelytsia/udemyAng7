@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -7,8 +7,10 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  formEmailControl: FormControl = new FormControl('');
-  formPasswordControl: FormControl = new FormControl('123asd');
+  loginForm: FormGroup = new FormGroup({
+    formEmailControl:  new FormControl(''),
+    formPasswordControl:  new FormControl('123asd')
+  })
   
   constructor() { }
 
@@ -21,11 +23,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    console.log(this.formEmailControl);
+    console.log(this.loginForm.value);
   }
 
   ngOnInit() {
-    this.formEmailControl.setValue('some@email.com');
     this.addGradientClass();
   }
 
