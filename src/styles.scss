@@ -13,10 +13,13 @@ html {
     }
     
 }
+
+ul {
+    list-style: none;
+}
 .auth-form-page {
     display: flex;
     justify-content: center;
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', endColorstr='#aa75af',GradientType=0 );
     .main-form { 
         display: flex;
         flex-direction: column;

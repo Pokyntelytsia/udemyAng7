@@ -1,4 +1,19 @@
+@import "../mixins";
+
 h1 {
     font-family: 'Courier New', Courier, monospace;
     text-align: center;
+}
+.mat-drawer-container {
+    height: 100vh;
+    @include gradient-violet;
+}
+.mat-toolbar {
+    margin-bottom: 20px;
+    ul {
+        display: flex;
+        li {
+            margin-right: 20px;
+        }
+    }
 }
