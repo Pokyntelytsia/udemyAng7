@@ -1,0 +1,12 @@
+
+.list-name {
+    margin-left: 6px;
+}
+.mat-icon-button {
+    outline: none;
+}
+.mat-list-item {
+    &.active {
+        background: #e6eafd
+    }
+}

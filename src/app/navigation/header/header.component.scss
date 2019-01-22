@@ -1,0 +1,48 @@
+.tabs {
+    height: 100%;
+    ul {
+        display: flex;
+        margin: 0;
+        align-items: stretch;
+        height: 100%;
+        li {
+            display: flex;
+            align-items: stretch;
+            a {
+                padding: 0 20px;
+                font-size: 16px;
+                display: flex;
+                align-items: center;
+                color: white;
+                text-transform: uppercase;
+                text-decoration: none;
+                &.active {
+                    background-color: #3c4ca5;
+                }
+                &:hover {
+                    background-color: #3c4ca5;
+                }
+            }
+        
+            
+        }
+    }
+}
+.sidenav-toggle {
+    background: no-repeat;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    height: 28px;
+    mat-icon {
+        color: white;
+    }
+}
+.left-part {
+    display: flex;
+    align-items: center;
+    a {
+        text-decoration: none;
+        color: white;
+    }
+}
