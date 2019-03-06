@@ -24,7 +24,14 @@ export class CurrentTrainingComponent implements OnInit {
 
   onStopProgress() {
     window.clearInterval(this.progressInterval);
-    this.matDialog.open(StopTrainingComponent);
+    const dialogRef = this.matDialog.open(StopTrainingComponent, {
+      data: {
+        progress: this.progress
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+    })
   }
 
   constructor(private matDialog: MatDialog) { }
