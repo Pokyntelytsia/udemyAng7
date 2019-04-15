@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -14,12 +15,18 @@ export class SignupComponent implements OnInit, OnDestroy {
   private removeGradientClass(): void {
     document.body.classList.remove('auth-page-gradient');
   }
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   maxBirthdate: Date;
 
   onSubmit(form: NgForm):void {
-    console.log(form);
+    console.log(form, form.valid);
+    if(form.invalid)
+    return;
+    this.authService.register({
+      email: form.value.email,
+      password: form.value.password
+    })
   }
   
   ngOnInit() {
