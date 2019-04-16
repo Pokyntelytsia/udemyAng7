@@ -20,7 +20,6 @@ export class SignupComponent implements OnInit, OnDestroy {
   maxBirthdate: Date;
 
   onSubmit(form: NgForm):void {
-    console.log(form, form.valid);
     if(form.invalid)
     return;
     this.authService.register({
