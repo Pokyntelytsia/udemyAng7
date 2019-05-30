@@ -5,17 +5,8 @@
       <mat-card-content>
         <mat-form-field>
           <mat-select placeholder="Select new training">
-            <mat-option value="crunches">
-                Crunches
-            </mat-option>
-            <mat-option value="touch-toes">
-                Touch toes
-            </mat-option>
-            <mat-option value="side-lunges">
-                Side lunges
-            </mat-option>
-            <mat-option value="burpees">
-                Burpees
+            <mat-option value="crunches" *ngFor="let training of availableTrainings" [value]="training.id">
+                {{training.name}}
             </mat-option>
           </mat-select>
         </mat-form-field>
