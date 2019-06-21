@@ -1,19 +1,21 @@
 <div class="container">
   <div class="row d-flex justify-content-center">
     <mat-card class="col-md col-lg-4 d-flex align-items-center flex-column">
-      <mat-card-title>Let start workout!</mat-card-title>
-      <mat-card-content>
-        <mat-form-field>
-          <mat-select placeholder="Select new training">
-            <mat-option value="crunches" *ngFor="let training of availableTrainings" [value]="training.id">
-                {{training.name}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </mat-card-content>
-      <mat-card-actions class="d-flex justify-content-center">
-        <button type="submit" color="primary" mat-flat-button (click)="addTraining()">Start</button>
-      </mat-card-actions>
+      <form (ngSubmit)="addTraining(f)" #f="ngForm">
+          <mat-card-title>Let start workout!</mat-card-title>
+          <mat-card-content>
+            <mat-form-field>
+              <mat-select placeholder="Select new training" ngModel name="exercise" required>
+                <mat-option value="crunches" *ngFor="let training of availableTrainings" [value]="training.id">
+                    {{training.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </mat-card-content>
+          <mat-card-actions class="d-flex justify-content-center">
+            <button type="submit" color="primary" mat-flat-button [disabled]="f.invalid">Start</button>
+          </mat-card-actions>
+      </form>
     </mat-card>
   </div>
 </div>

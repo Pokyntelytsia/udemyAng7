@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TrainingService } from '../training/training.service';
 import { Exercise } from '../training/exrcise.model';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-new-training',
@@ -11,8 +12,8 @@ export class NewTrainingComponent implements OnInit {
   availableTrainings: Exercise[] = [];
   constructor(private trainingService: TrainingService) {  }
 
-  addTraining () {
-    this.trainingService.exerciseStart('12');
+  addTraining (form: NgForm) {
+    this.trainingService.exerciseStart(form.value.exercise);
   }
 
   ngOnInit() {
