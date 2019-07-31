@@ -9,10 +9,10 @@ export class TrainingService {
     availableExercises: Exercise[];
     exerciseChanged = new Subject<Exercise> ();
     exercisesChanged = new Subject<Exercise[]> ();
+    pastExercisesChanged = new Subject<Exercise[]> ();
     constructor(private db: AngularFirestore) {  }
 
     private runningExercise: Exercise;
-    private pastExersices = [];
 
     getExercises() {
         this.db.collection('availableExercises').snapshotChanges()
@@ -42,7 +42,7 @@ export class TrainingService {
     }
 
     exerciseComplete() {
-        this.pastExersices.push({ 
+        this.savePastExercise({ 
             ...this.runningExercise,
             date: new Date(),
             state: 'completed'
@@ -52,22 +52,40 @@ export class TrainingService {
     }
 
     exerciseCancele(progress: number) {
-        this.pastExersices.push({ 
+        this.savePastExercise({ 
             ...this.runningExercise,
             duration: this.runningExercise.duration * progress / 100,
             calories: this.runningExercise.duration * progress / 100,
             date: new Date(),
-            state: 'canceled'
+            state: 'cancelled'
          });
         this.runningExercise = null;
         this.exerciseChanged.next(null);
+    }
+
+    private savePastExercise(exercise:Exercise) {
+        this.db.collection('pastExercises').add(exercise);
     }
 
     getRunningExercise() {
         return { ...this.runningExercise };
     }
 
-    getFinishedExercises() {
-        return [...this.pastExersices];
+    fetchFinishedExercises() {
+        this.db.collection('pastExercises')
+        .valueChanges()
+        .pipe(
+            map((data: any[]) => {
+                return data.map(item => {
+                    item.date = item.date.toDate();
+                    return item;
+                })
+            })
+        )
+        .subscribe(
+            (data: Exercise[]) => {
+                this.pastExercisesChanged.next(data);
+            }
+        )
     }
 }
