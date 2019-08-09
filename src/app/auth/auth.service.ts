@@ -14,6 +14,19 @@ export class AuthService {
         private angularFireAuth: AngularFireAuth, 
         private trainingService: TrainingService){}
 
+    initAuthListener() {
+        this.angularFireAuth.authState.subscribe(user => {
+            if(user) {
+                this.authChange.next(true);
+                this.router.navigate(['/training']);
+            } else {
+                this.trainingService.cancelFbSubs();
+                this.user = null;
+                this.authChange.next(false);
+                this.router.navigate(['/login']);
+            }
+        })
+    }
     register (authData: AuthData) {
         this.angularFireAuth.auth.createUserWithEmailAndPassword(authData.email, authData.password).
         then(auth => {
@@ -25,14 +38,12 @@ export class AuthService {
         .catch(err => {
             console.error(authData);
         });
-        this.authSuccess();
     }
 
     login(authData: AuthData) {
         
         this.angularFireAuth.auth.signInWithEmailAndPassword(authData.email, authData.password)
         .then(data => {
-            this.authSuccess();
             this.user = {
                 email: authData.email,
                 id: Math.round(Math.random() * 10000).toString()
@@ -44,16 +55,7 @@ export class AuthService {
     }
 
     logout() {
-        this.trainingService.cancelFbSubs();
         this.angularFireAuth.auth.signOut();
-        this.user = null;
-        this.authChange.next(false);
-        this.router.navigate(['/login']);
-    }
-
-    private authSuccess() {
-        this.authChange.next(true);
-        this.router.navigate(['/training']);
     }
 
     getUser() {
