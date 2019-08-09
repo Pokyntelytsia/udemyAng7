@@ -4,12 +4,15 @@ import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { TrainingService } from '../training/training/training.service';
 
 @Injectable()
 export class AuthService {
     private user: User;
     authChange = new Subject <boolean>();
-    constructor(private router: Router, private angularFireAuth: AngularFireAuth){}
+    constructor(private router: Router, 
+        private angularFireAuth: AngularFireAuth, 
+        private trainingService: TrainingService){}
 
     register (authData: AuthData) {
         this.angularFireAuth.auth.createUserWithEmailAndPassword(authData.email, authData.password).
@@ -41,6 +44,8 @@ export class AuthService {
     }
 
     logout() {
+        this.trainingService.cancelFbSubs();
+        this.angularFireAuth.auth.signOut();
         this.user = null;
         this.authChange.next(false);
         this.router.navigate(['/login']);
