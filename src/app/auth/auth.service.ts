@@ -5,6 +5,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { TrainingService } from '../training/training/training.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { UIService } from '../shared/ui.service';
 
 @Injectable()
 export class AuthService {
@@ -12,11 +14,14 @@ export class AuthService {
     authChange = new Subject <boolean>();
     constructor(private router: Router, 
         private angularFireAuth: AngularFireAuth, 
+        private snBar: MatSnackBar,
+        private uiService: UIService,
         private trainingService: TrainingService){}
 
     initAuthListener() {
         this.angularFireAuth.authState.subscribe(user => {
             if(user) {
+                this.user = {...user, id: '0'};
                 this.authChange.next(true);
                 this.router.navigate(['/training']);
             } else {
@@ -28,28 +33,37 @@ export class AuthService {
         })
     }
     register (authData: AuthData) {
+        this.uiService.isLoading.next(true);
         this.angularFireAuth.auth.createUserWithEmailAndPassword(authData.email, authData.password).
         then(auth => {
             this.user = {
                 email: authData.email,
                 id: Math.round(Math.random() * 10000).toString()
             };
+            this.uiService.isLoading.next(false);
         })
         .catch(err => {
-            console.error(authData);
+            this.snBar.open(err.message, null, {
+                duration: 3000,
+            });
+            this.uiService.isLoading.next(false);
         });
     }
 
     login(authData: AuthData) {
-        
+        this.uiService.isLoading.next(true);
         this.angularFireAuth.auth.signInWithEmailAndPassword(authData.email, authData.password)
         .then(data => {
             this.user = {
                 email: authData.email,
                 id: Math.round(Math.random() * 10000).toString()
             };
+            this.uiService.isLoading.next(false);
         }).catch(err => {
-            console.log(err);
+            this.snBar.open(err.message, null, {
+                duration: 3000,
+            });
+            this.uiService.isLoading.next(false);
         });
         
     }

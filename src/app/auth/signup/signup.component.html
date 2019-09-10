@@ -40,7 +40,8 @@
       <mat-datepicker #bdPicker></mat-datepicker>
     </mat-form-field>
     <mat-checkbox ngModel required name="agreement">Agree to Terms and Conditions</mat-checkbox>
-    <button type="submit" class="submit" mat-raised-button color="primary">Submit</button>
+    <button *ngIf="!isLoading" type="submit" class="submit" mat-raised-button color="primary">Submit</button>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
     <a routerLink="/login">Or signin</a>
   </form>
 </section>

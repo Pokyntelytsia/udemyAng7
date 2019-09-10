@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 export class NewTrainingComponent implements OnInit, OnDestroy {
   availableTrainings: Exercise[];
   trainingsSub: Subscription;
+  isLoading = true;
   constructor(private trainingService: TrainingService) {  }
 
   addTraining (form: NgForm) {
@@ -21,6 +22,7 @@ export class NewTrainingComponent implements OnInit, OnDestroy {
   ngOnInit() {
      this.trainingsSub = this.trainingService.exercisesChanged.subscribe(data => {
       this.availableTrainings = data;
+      this.isLoading = false;
      });
      this.trainingService.getExercises();
   }

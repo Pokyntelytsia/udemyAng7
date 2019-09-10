@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { emailValidator } from '../../validators/email.validator';
 import { AuthService } from '../auth.service';
+import { UIService } from '../../shared/ui.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -9,6 +11,13 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
+
+  constructor( 
+    private uiService: UIService,
+    private fb: FormBuilder, 
+    private authService: AuthService) { }
+  isLoading: boolean = false;
+  private isLoadingSub: Subscription;
 
   loginForm: FormGroup = this.fb.group({
     formEmailControl: ['', emailValidator()],
@@ -23,8 +32,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     return this.loginForm.get('formPasswordControl');
   }
   
-  constructor( private fb: FormBuilder, private authService: AuthService) { }
-
   private addGradientClass(): void {
     document.body.classList.add('auth-page-gradient');
   }
@@ -34,7 +41,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    console.log(this.loginForm, this.emailForm);
     this.authService.login({
       email: this.emailForm.value,
       password: this.passwordForm.value
@@ -43,10 +49,14 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.addGradientClass();
+    this.isLoadingSub = this.uiService.isLoading.subscribe((isloading: boolean) => {
+      this.isLoading = isloading;
+    })
   }
 
   ngOnDestroy() {
     this.removeGradientClass();
+    this.isLoadingSub.unsubscribe();
   }
 
 }
