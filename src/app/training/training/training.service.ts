@@ -3,6 +3,7 @@ import { Subject, Subscription } from "rxjs";
 import { map } from "rxjs/operators";
 import {AngularFirestore} from '@angular/fire/firestore';
 import { Injectable } from "@angular/core";
+import { UIService } from "src/app/shared/ui.service";
 
 @Injectable()
 export class TrainingService {
@@ -10,7 +11,9 @@ export class TrainingService {
     exerciseChanged = new Subject<Exercise> ();
     exercisesChanged = new Subject<Exercise[]> ();
     pastExercisesChanged = new Subject<Exercise[]> ();
-    constructor(private db: AngularFirestore) {  }
+    constructor(
+        private db: AngularFirestore,
+        private uiService: UIService) {  }
 
     private runningExercise: Exercise;
     private fbSubs: Subscription[] = [];
@@ -32,6 +35,9 @@ export class TrainingService {
         .subscribe(data => {
             this.availableExercises = data;
             this.exercisesChanged.next([...data]);
+        }, error => {
+            this.exercisesChanged.next(null);
+            this.uiService.showNotification('Failed to load trainings list', null, 3000);
         }));
     }
 

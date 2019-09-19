@@ -5,7 +5,6 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { TrainingService } from '../training/training/training.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { UIService } from '../shared/ui.service';
 
 @Injectable()
@@ -14,7 +13,6 @@ export class AuthService {
     authChange = new Subject <boolean>();
     constructor(private router: Router, 
         private angularFireAuth: AngularFireAuth, 
-        private snBar: MatSnackBar,
         private uiService: UIService,
         private trainingService: TrainingService){}
 
@@ -43,9 +41,7 @@ export class AuthService {
             this.uiService.isLoading.next(false);
         })
         .catch(err => {
-            this.snBar.open(err.message, null, {
-                duration: 3000,
-            });
+            this.uiService.showNotification(err.message, null, 3000);
             this.uiService.isLoading.next(false);
         });
     }
@@ -60,9 +56,7 @@ export class AuthService {
             };
             this.uiService.isLoading.next(false);
         }).catch(err => {
-            this.snBar.open(err.message, null, {
-                duration: 3000,
-            });
+            this.uiService.showNotification(err.message, null, 3000);
             this.uiService.isLoading.next(false);
         });
         

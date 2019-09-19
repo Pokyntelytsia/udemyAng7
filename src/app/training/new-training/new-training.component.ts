@@ -19,12 +19,16 @@ export class NewTrainingComponent implements OnInit, OnDestroy {
     this.trainingService.exerciseStart(form.value.exercise);
   }
 
+  fetchTrainings() {
+    this.trainingService.getExercises();
+  }
+
   ngOnInit() {
      this.trainingsSub = this.trainingService.exercisesChanged.subscribe(data => {
       this.availableTrainings = data;
       this.isLoading = false;
      });
-     this.trainingService.getExercises();
+     this.fetchTrainings();
   }
 
   ngOnDestroy() {
