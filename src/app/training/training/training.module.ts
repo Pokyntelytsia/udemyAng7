@@ -4,9 +4,8 @@ import { CurrentTrainingComponent } from '../current-training/current-training.c
 import { NewTrainingComponent } from '../new-training/new-training.component';
 import { PastTrainingsComponent } from '../past-trainings/past-trainings.component';
 import { StopTrainingComponent } from '../current-training/stop-current-training.component';
-import { CommonModule } from '@angular/common';
-import { MaterialModule } from '../../material.module';
-import { FormsModule } from '@angular/forms';
+import { SharedModule } from "../../shared/shared.module";
+import { TrainingRoutingModule } from "../training-routing.module";
 
 @NgModule({
     declarations: [
@@ -17,9 +16,8 @@ import { FormsModule } from '@angular/forms';
         StopTrainingComponent,
     ],
     imports: [
-        MaterialModule,
-        CommonModule,
-        FormsModule,
+        SharedModule,
+        TrainingRoutingModule,
     ],
     entryComponents: [StopTrainingComponent]
 })

@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './welcome/welcome.component';
@@ -16,7 +15,6 @@ import { TrainingService } from './training/training/training.service';
 import { environment } from '../environments/environment';
 import { UIService } from './shared/ui.service';
 import { AuthModule } from './auth/auth.module';
-import { TrainingModule } from './training/training/training.module';
 
 @NgModule({
   declarations: [
@@ -31,10 +29,8 @@ import { TrainingModule } from './training/training/training.module';
     BrowserAnimationsModule,
     MaterialModule,
     AngularFirestoreModule,
-    AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebase),
     AuthModule,
-    TrainingModule
   ],
   providers: [AuthService, TrainingService, UIService],
   bootstrap: [AppComponent],
