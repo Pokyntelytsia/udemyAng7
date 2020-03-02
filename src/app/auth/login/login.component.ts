@@ -2,8 +2,10 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { emailValidator } from '../../validators/email.validator';
 import { AuthService } from '../auth.service';
-import { UIService } from '../../shared/ui.service';
-import { Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import * as fromAPP from '../../store/app.reducer';
 
 @Component({
   selector: 'app-login',
@@ -13,11 +15,11 @@ import { Subscription } from 'rxjs';
 export class LoginComponent implements OnInit, OnDestroy {
 
   constructor( 
-    private uiService: UIService,
     private fb: FormBuilder, 
-    private authService: AuthService) { }
-  isLoading: boolean = false;
-  private isLoadingSub: Subscription;
+    private authService: AuthService,
+    private store: Store<fromAPP.State>
+    ) { }
+  isLoading$: Observable<boolean>;
 
   loginForm: FormGroup = this.fb.group({
     formEmailControl: ['', emailValidator()],
@@ -48,15 +50,13 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.isLoading$ = this.store.select(fromAPP.getIsLoading);
     this.addGradientClass();
-    this.isLoadingSub = this.uiService.isLoading.subscribe((isloading: boolean) => {
-      this.isLoading = isloading;
-    })
+    
   }
 
   ngOnDestroy() {
     this.removeGradientClass();
-    this.isLoadingSub.unsubscribe();
   }
 
 }

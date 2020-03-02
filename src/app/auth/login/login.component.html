@@ -17,8 +17,8 @@
         required>
         <mat-error *ngIf="passwordForm.errors?.required">Password is required</mat-error>
       </mat-form-field>
-      <button *ngIf="!isLoading" class="submit" class="submit" mat-raised-button color="primary" [disabled]="!loginForm.valid">Login</button>
-      <mat-spinner *ngIf="isLoading"></mat-spinner>
+      <button *ngIf="!(isLoading | async)" class="submit" class="submit" mat-raised-button color="primary" [disabled]="!loginForm.valid">Login</button>
+      <mat-spinner *ngIf="isLoading | async"></mat-spinner>
     <a routerLink="/signup">Or signup</a>
   </form>
 </section>
