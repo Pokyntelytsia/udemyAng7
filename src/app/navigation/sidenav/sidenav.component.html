@@ -3,13 +3,13 @@
     <a mat-list-item 
     routerLink="{{list.link}}"
     routerLinkActive="active"
-    *ngIf="isAuth != list.anonymus"
+    *ngIf="(isAuth$ | async) != list.anonymus"
     (click)="onSidenavClose()">
         <mat-icon>{{list.icon}}</mat-icon>
         <span class="list-name">{{list.name}}</span>
     </a>
 </ng-container>
-<mat-list-item (click)="logout();onSidenavClose()" *ngIf="isAuth">
+<mat-list-item (click)="logout();onSidenavClose()" *ngIf="isAuth$ | async">
     <button mat-icon-button>
         <mat-icon>eject</mat-icon>
         <span class="list-name">Logout</span>

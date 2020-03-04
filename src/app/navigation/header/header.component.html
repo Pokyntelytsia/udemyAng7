@@ -7,16 +7,16 @@
 <div class="right-part d-none d-sm-flex d-md-flex d-lg-flex">
 <div class="tabs">
     <ul>
-        <li *ngIf="!isAuth">
+        <li *ngIf="!(isAuth$ | async)">
             <a routerLink="/login" routerLinkActive="active">Login</a>
         </li>
-        <li *ngIf="!isAuth">
+        <li *ngIf="!(isAuth$ | async)">
             <a routerLink="/signup" routerLinkActive="active">Signup</a>
         </li>
-        <li *ngIf="isAuth">
+        <li *ngIf="isAuth$">
             <a routerLink="/training" routerLinkActive="active">Trainig</a>
         </li>
-        <li *ngIf="isAuth" (click)="logout()">
+        <li *ngIf="isAuth$" (click)="logout()">
             <a>Logout</a>
         </li>
     </ul>

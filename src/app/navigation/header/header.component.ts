@@ -1,6 +1,8 @@
 import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
 import { AuthService } from 'src/app/auth/auth.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import * as fromApp from '../../store/app.reducer'
 
 @Component({
   selector: 'app-header',
@@ -15,8 +17,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.toggleEvent.emit();
   }
 
-  constructor(private authService: AuthService) { }
-  isAuth = false;
+  constructor(private authService: AuthService,
+    private store: Store< fromApp.State>) { }
+  isAuth$: Observable<boolean>;
   authSubscription: Subscription;
 
   logout() {
@@ -25,9 +28,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.authSubscription = this.authService.authChange.subscribe(authStatus => {
-      this.isAuth = authStatus;
-    });
+    this.isAuth$ = this.store.select(fromApp.getIsAuth);
   }
 
   ngOnDestroy() {

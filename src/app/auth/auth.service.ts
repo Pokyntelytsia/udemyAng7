@@ -10,11 +10,11 @@ import { TrainingService } from '../training/training/training.service';
 import { UIService } from '../shared/ui.service';
 import * as fromApp from '../store/app.reducer';
 import * as UI from '../store/ui.actions';
+import * as Auth from '../store/auth.actions';
 
 @Injectable()
 export class AuthService {
     private user: User;
-    authChange = new Subject <boolean>();
     constructor(private router: Router, 
         private angularFireAuth: AngularFireAuth, 
         private uiService: UIService,
@@ -25,12 +25,12 @@ export class AuthService {
         this.angularFireAuth.authState.subscribe(user => {
             if(user) {
                 this.user = {...user, id: '0'};
-                this.authChange.next(true);
+                this.store.dispatch(new Auth.SetAuth());
                 this.router.navigate(['/training']);
             } else {
                 this.trainingService.cancelFbSubs();
                 this.user = null;
-                this.authChange.next(false);
+                this.store.dispatch(new Auth.SetUnAuth());
                 this.router.navigate(['/login']);
             }
         })
