@@ -1,6 +1,6 @@
-import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { AuthService } from 'src/app/auth/auth.service';
-import { Subscription, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as fromApp from '../../store/app.reducer'
 
@@ -9,7 +9,7 @@ import * as fromApp from '../../store/app.reducer'
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit {
 
   @Output() toggleEvent = new EventEmitter<void> ();
 
@@ -20,7 +20,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(private authService: AuthService,
     private store: Store< fromApp.State>) { }
   isAuth$: Observable<boolean>;
-  authSubscription: Subscription;
 
   logout() {
     console.log('logout');
@@ -29,10 +28,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.isAuth$ = this.store.select(fromApp.getIsAuth);
-  }
-
-  ngOnDestroy() {
-    this.authSubscription.unsubscribe();
   }
 
 }
